@@ -1,0 +1,167 @@
+# ----------------------------------------------------------------------------
+#                              BRIAN'S AWESOME BASHRC
+# ----------------------------------------------------------------------------
+
+# TABLE OF CONTENTS:
+# -------------------------------------
+# 1.  Environment Variables
+# 2.  Prompt
+# 3.  Navigation and Searching
+# 4.  File Operations
+# 5.  Development
+#   a.  Python
+#   b.  Web
+#   c.  Android
+
+# ----------------------------------------------------------------------------
+# 1.  ENVIRONMENT VARIABLES
+# ----------------------------------------------------------------------------
+
+#   Default Editor
+#   -----------------------------------
+    export EDITOR=vim
+
+#   Default Workspace Directory
+#   -----------------------------------
+    export WORKSPACE=$HOME/workspace
+
+#   Default Tools Directory
+#   -----------------------------------
+    export WORKSPACE=$HOME/tools
+
+#   256 Color Support
+#   -----------------------------------
+    export TERM=xterm-256color
+
+#   Powerline Setup (for tmux)
+#   -----------------------------------
+    POWERLINE_CONFIG_COMMAND=~/.vim/bundle/powerline/scripts
+    export PATH=$PATH:$POWERLINE_CONFIG_COMMAND
+
+
+# ----------------------------------------------------------------------------
+# 2.  PROMPT
+# ----------------------------------------------------------------------------
+
+#   Improve the default prompt
+#   -----------------------------------
+    export PS1='\u@\H:\w$ '
+
+
+# ----------------------------------------------------------------------------
+# 3.  NAVIGATION AND SEARCHING
+# ----------------------------------------------------------------------------
+
+#   Go Back Aliases
+#   -----------------------------------
+    alias ..='cd ../'                
+    alias ...='cd ../../'            
+    alias .3='cd ../../../'          
+    alias .4='cd ../../../../'       
+    alias .5='cd ../../../../../'    
+
+#   List Aliases
+#   -----------------------------------
+    alias ls="ls -G"
+    alias l='ls -lh'
+    alias la='ls -lah'
+
+#   Quickly Search for a File
+#   -----------------------------------
+    alias qfind="find . -name "
+
+#   Quickly Search File Contents
+#   -----------------------------------
+    qgrep() {
+        grep $1 -r ./
+    }
+
+
+# ----------------------------------------------------------------------------
+# 4.  FILE OPERATIONS
+# ----------------------------------------------------------------------------
+
+#   Quickly extract most files
+#   -----------------------------------
+    extract () {
+      if [ -f $1 ] ; then
+        case $1 in
+          *.tar.bz2)   tar xjf $1     ;;
+          *.tar.gz)    tar xzf $1     ;;
+          *.bz2)       bunzip2 $1     ;;
+          *.rar)       unrar e $1     ;;
+          *.gz)        gunzip $1      ;;
+          *.tar)       tar xf $1      ;;
+          *.tbz2)      tar xjf $1     ;;
+          *.tgz)       tar xzf $1     ;;
+          *.zip)       unzip $1       ;;
+          *.Z)         uncompress $1  ;;
+          *.7z)        7z x $1        ;;
+          *)     echo "'$1' cannot be extracted via extract()" ;;
+           esac
+      else
+        echo "'$1' is not a valid file"
+      fi
+    }
+
+
+# ----------------------------------------------------------------------------
+# 5.  DEVELOPMENT
+# ----------------------------------------------------------------------------
+
+#   -----------------------------------
+#   a. Python
+#   -----------------------------------
+
+#     Remove .pyc and .pyo files
+#     ---------------------------------
+      alias pyclean='find . -name "*.py[co]" -exec rm -rf {} \;'
+
+#     Initialize a Python Package
+#     ---------------------------------
+      alias pyinit='touch __init__.py'
+
+#   -----------------------------------
+#   b. Web
+#   -----------------------------------
+
+#     Start and Stop Proxy
+#     ---------------------------------
+      enable_http_proxy="http_proxy=http://127.0.0.1:8080"
+      enable_https_proxy="https_proxy=http://127.0.0.1:8080"
+      alias proxy="export $enable_http_proxy && export $enable_https_proxy"
+      alias dproxy="unset http_proxy && unset https_proxy"
+	
+#     Start Burp
+#     ---------------------------------
+      alias burp="source $TOOLS/burp.jar"
+
+#     HTTP Code Lookup
+#     ---------------------------------
+      function http() {
+        curl http://httpcode.info/$1;
+      }
+
+#   -----------------------------------
+#   c. Android
+#   -----------------------------------
+
+#     Restart ADB
+#     ---------------------------------
+      alias adb-restart="adb kill-server && adb devices"
+
+#     Installed Packages on Device
+#     ---------------------------------
+      alias adb-list-packages="adb shell pm list packages"
+
+#     Clear Logcat
+#     ---------------------------------
+      alias logcat-clear="adb logcat -c"
+
+#     Show Logcat Errors
+#     ---------------------------------
+      alias logcat-errors="adb logcat -v threadtime *:E"
+
+#     Show Logcat Warnings
+#     ---------------------------------
+      alias logcat-warns="adb logcat -v threadtime *:W"

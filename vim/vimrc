@@ -1,0 +1,180 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdTree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'klen/python-mode'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'taglist.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'luochen1990/rainbow'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" Non plugin stuff
+syntax on
+set encoding=utf-8
+
+" Remap leader
+let mapleader = ','
+
+" Make config files look nicer
+au BufRead,BufNewFile *.config setfiletype dosini
+
+" Make fontend stuff look nice
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
+
+" Don't show pyc files in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$, \.o$']
+
+" Code Folding Stuff
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+
+" Allow copy to clipboard
+set clipboard+=unnamed
+
+" Remap Snippets to play nice with YCM
+imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
+
+" Easier Split Navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+"Python support
+augroup vimrc_autocmds
+    autocmd!
+    " highlight characters past column 80
+    autocmd FileType python highlight Excess ctermbg=Black guibg=Black
+    autocmd FileType python match Excess /\%81v.*/
+    autocmd FileType python set nowrap
+    augroup END
+
+"Make the color column look decent
+highlight ColorColumn ctermbg=234 guibg=#2c2d27
+
+" Powerline setup
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
+set laststatus=2
+" Remove scrollbars in macvim
+set guioptions-=L
+set guioptions-=r
+
+let g:pymode_rope = 0
+
+" pymode-completion
+let g:pymode_rope_completion = 0
+
+" Documentation
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+
+"Linting
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+" Auto check on save
+let g:pymode_lint_write = 1
+
+" Support virtualenv
+let g:pymode_virtualenv = 1
+
+" Easy GoTo
+nnoremap <leader>g :YcmCompleter GoTo<CR>
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Don't autofold code
+let g:pymode_folding = 0
+
+" Pefer spaces to tabs
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" TagList Plugin Configuration
+let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
+let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_Close_On_Select = 1
+let Tlist_Use_Right_Window = 1
+let Tlist_File_Fold_Auto_Close = 1
+let Tlist_Enable_Fold_Column = 0
+map <leader>t :TlistToggle<CR>
+
+if &diff
+    colorscheme blackboard
+endif
+
+if has ('gui_running')
+    colorscheme blackboard
+    " more subtle popup colors 
+    highlight Pmenu guibg=#000000 gui=bold    
+else
+    highlight Pmenu ctermfg=232 ctermbg=238
+endif
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+" Softer diff colors
+highlight DiffAdd       cterm=bold ctermfg=10   ctermbg=237
+highlight DiffDelete    cterm=bold ctermfg=237  ctermbg=237
+highlight DiffChange    cterm=bold ctermfg=10   ctermbg=237
+highlight DiffText      cterm=bold ctermfg=10   ctermbg=234
+
+" Softer divider colors
+highlight VertSplit     cterm=bold ctermfg=237  ctermbg=237
+
+" Easily toggle nerdTree
+nmap <leader>ne :NERDTree<cr>
+
+" Visual mode colors
+hi Visual term=reverse cterm=reverse ctermbg=237
+
+" Turn on rainbow parens
+let g:rainbow_active = 1
+
+" Transform Splits
+noremap <Leader>H <c-w>t<c-w>K<cr>
+noremap <Leader>V <c-w>t<c-w>H<cr>
+
+" Default to command mode when losing focus
+au FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
