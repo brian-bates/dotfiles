@@ -1,31 +1,21 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Plugins
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdTree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'klen/python-mode'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'taglist.vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'luochen1990/rainbow'
+Plug 'jiangmiao/auto-pairs'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdTree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'klen/python-mode'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'taglist.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'luochen1990/rainbow'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'jeffkreeftmeijer/vim-numbertoggle'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()
 
 " Non plugin stuff
 syntax on
@@ -178,3 +168,20 @@ noremap <Leader>V <c-w>t<c-w>H<cr>
 
 " Default to command mode when losing focus
 au FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
+
+" air-line
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
