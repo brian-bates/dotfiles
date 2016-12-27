@@ -33,11 +33,6 @@
 #   -----------------------------------
     export TERM=xterm-256color
 
-#   Powerline Setup (for tmux)
-#   -----------------------------------
-    POWERLINE_CONFIG_COMMAND=~/.vim/bundle/powerline/scripts
-    export PATH=$PATH:$POWERLINE_CONFIG_COMMAND
-
 
 # ----------------------------------------------------------------------------
 # 2.  PROMPT
@@ -64,7 +59,7 @@
 #   -----------------------------------
     alias ls="ls -G"
     alias l='ls -lh'
-    alias la='ls -lah'
+    alias la='ls -la'
 
 #   Quickly Search for a File
 #   -----------------------------------
@@ -109,6 +104,10 @@
 # 5.  DEVELOPMENT
 # ----------------------------------------------------------------------------
 
+#   Activate Autoenv
+#   -----------------------------------
+    source ~/.autoenv/activate.sh
+
 #   -----------------------------------
 #   a. Python
 #   -----------------------------------
@@ -120,6 +119,12 @@
 #     Initialize a Python Package
 #     ---------------------------------
       alias pyinit='touch __init__.py'
+      
+#     Enable Virtualenvwrapper
+#     ---------------------------------
+      export WORKON_HOME=$HOME/.virtualenvs
+      export PROJECT_HOME=$HOME/Devel
+      source /usr/local/bin/virtualenvwrapper.sh
 
 #   -----------------------------------
 #   b. Web
