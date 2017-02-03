@@ -27,7 +27,11 @@
 
 #   Default Tools Directory
 #   -----------------------------------
-    export WORKSPACE=$HOME/tools
+    export TOOLS=$HOME/tools
+
+#   Default Tools Directory
+#   -----------------------------------
+    export GCC_ARM_HOME=$TOOLS/arm-gcc
 
 #   256 Color Support
 #   -----------------------------------
@@ -170,3 +174,11 @@
 #     Show Logcat Warnings
 #     ---------------------------------
       alias logcat-warns="adb logcat -v threadtime *:W"
+
+#   -----------------------------------
+#   d. Embedded
+#   -----------------------------------
+
+#     ARM
+#     ---------------------------------
+      export PATH=$PATH:$TOOLS/gcc-arm-none-eabi-6_2-2016q4/bin

@@ -1,6 +1,5 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
-
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdTree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -14,7 +13,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'luochen1990/rainbow'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
-
+" Plug 'edkolev/tmuxline.vim'
 call plug#end()
 
 " Non plugin stuff
@@ -42,7 +41,7 @@ set foldlevel=99
 nnoremap <space> za
 
 " Allow copy to clipboard
-set clipboard+=unnamed
+set clipboard=unnamedplus
 
 " Remap Snippets to play nice with YCM
 imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
@@ -184,4 +183,11 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+" dark mode!
+let &t_Co=16
+set background=dark
+colorscheme solarized
+
+execute "normal Tmuxline vim_statusline_3"
 
