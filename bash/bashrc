@@ -27,7 +27,7 @@
 
 #   Default Tools Directory
 #   -----------------------------------
-    export TOOLS=$HOME/tools
+    export TOOLS=$WORKSPACE/tools
 
 #   Default Tools Directory
 #   -----------------------------------
