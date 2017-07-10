@@ -44,7 +44,7 @@
 
 #   Improve the default prompt
 #   -----------------------------------
-    export PS1='\u@\H:\w$ '
+    export PS1='\u@\w\$ '
 
 
 # ----------------------------------------------------------------------------
@@ -110,7 +110,7 @@
 
 #   Activate Autoenv
 #   -----------------------------------
-    source ~/.autoenv/activate.sh
+    source /usr/local/opt/autoenv/activate.sh
 
 #   -----------------------------------
 #   a. Python

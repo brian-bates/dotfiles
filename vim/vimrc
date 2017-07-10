@@ -13,6 +13,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'luochen1990/rainbow'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'micha/vim-colors-solarized'
 " Plug 'edkolev/tmuxline.vim'
 call plug#end()
 
