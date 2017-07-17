@@ -41,7 +41,7 @@ set foldlevel=99
 nnoremap <space> za
 
 " Allow copy to clipboard
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 " Remap Snippets to play nice with YCM
 imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
@@ -188,6 +188,9 @@ let g:airline_symbols.linenr = ''
 let &t_Co=16
 set background=dark
 colorscheme solarized
+
+" Fix backspace
+set backspace=indent,eol,start
 
 execute "normal Tmuxline vim_statusline_3"
 
