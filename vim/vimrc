@@ -8,7 +8,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'klen/python-mode'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'taglist.vim'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'luochen1990/rainbow'
 Plug 'jiangmiao/auto-pairs'
