@@ -15,6 +15,7 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'micha/vim-colors-solarized'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
+Plug 'vim-scripts/taglist.vim'
 " Plug 'edkolev/tmuxline.vim'
 call plug#end()
 
