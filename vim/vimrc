@@ -13,6 +13,8 @@ Plug 'luochen1990/rainbow'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'micha/vim-colors-solarized'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
 " Plug 'edkolev/tmuxline.vim'
 call plug#end()
 
