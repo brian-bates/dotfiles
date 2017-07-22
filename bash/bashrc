@@ -12,6 +12,7 @@
 #   a.  Python
 #   b.  Web
 #   c.  Android
+# 6.  Browser Tools
 
 # ----------------------------------------------------------------------------
 # 1.  ENVIRONMENT VARIABLES
@@ -72,8 +73,13 @@
 #   Quickly Search File Contents
 #   -----------------------------------
     qgrep() {
-        grep $1 -r ./
+        grep $1 -I -r ./
     }
+
+#   Common Typos
+#   -----------------------------------
+    alias clera="clear"
+    alias sl="ls"
 
 
 # ----------------------------------------------------------------------------
@@ -182,3 +188,21 @@
 #     ARM
 #     ---------------------------------
       export PATH=$PATH:$TOOLS/gcc-arm-none-eabi-6_2-2016q4/bin
+
+# ----------------------------------------------------------------------------
+# 6.  BROWSER TOOLS
+# ----------------------------------------------------------------------------
+
+#   Launch a Google search
+#   ----------------------
+    google() {
+        search=""
+        echo "Googling: $@"
+        for term in $@; do
+            search="$search%20$term"
+        done
+        # Uncomment the appropriate command for your system
+        open "http://www.google.com/search?q=$search" # Mac OSX
+        # xdg-open "http://www.google.com/search?q=$search" # Linux
+        # start "http://www.google.com/search?q=$search" # Windows
+    }
