@@ -38,6 +38,21 @@
 #   -----------------------------------
     export TERM=xterm-256color
 
+#   Kube Configs
+#   -----------------------------------
+    export KUBECONFIGSBASE=$WORKSPACE/kubeconfigs
+    # Export configs
+    for config in $KUBECONFIGSBASE/*.config; do
+        [ -f "$config" ] || break
+        export KUBECONFIG=$KUBECONFIG:$config
+    done
+    # Setup aliases
+    alias k=kubectl
+    alias kx=kubectx
+    alias kns=kubens
+    complete -F __start_kubectl k
+    complete -F _kube_contexts kx
+
 
 # ----------------------------------------------------------------------------
 # 2.  PROMPT
@@ -116,6 +131,7 @@
 
 #   Activate Autoenv
 #   -----------------------------------
+    AUTOENV_ENV_FILENAME=.autoenv
     source /usr/local/opt/autoenv/activate.sh
 
 
@@ -187,14 +203,6 @@
 #     Show Logcat Warnings
 #     ---------------------------------
       alias logcat-warns="adb logcat -v threadtime *:W"
-
-#   -----------------------------------
-#   d. Embedded
-#   -----------------------------------
-
-#     ARM
-#     ---------------------------------
-      export PATH=$PATH:$TOOLS/gcc-arm-none-eabi-6_2-2016q4/bin
 
 # ----------------------------------------------------------------------------
 # 6.  BROWSER TOOLS

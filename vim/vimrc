@@ -16,7 +16,13 @@ Plug 'micha/vim-colors-solarized'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 Plug 'vim-scripts/taglist.vim'
-" Plug 'edkolev/tmuxline.vim'
+Plug 'keith/swift.vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'mileszs/ack.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'tikhomirov/vim-glsl'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'edkolev/tmuxline.vim'
 call plug#end()
 
 " Non plugin stuff
@@ -30,7 +36,7 @@ let mapleader = ','
 au BufRead,BufNewFile *.config setfiletype dosini
 
 " Make fontend stuff look nice
-au BufNewFile,BufRead *.js, *.html, *.css
+au BufNewFile,BufRead *.html
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2 |
@@ -115,12 +121,13 @@ set shiftwidth=4
 set expandtab
 
 " TagList Plugin Configuration
-let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
+let Tlist_Ctags_Cmd='ctags'
 let Tlist_GainFocus_On_ToggleOpen = 1
-let Tlist_Close_On_Select = 1
+let Tlist_Close_On_Select = 0
 let Tlist_Use_Right_Window = 1
 let Tlist_File_Fold_Auto_Close = 1
 let Tlist_Enable_Fold_Column = 0
+let Tlist_Use_Right_Window = 1
 map <leader>t :TlistToggle<CR>
 
 if &diff
@@ -158,6 +165,12 @@ highlight VertSplit     cterm=bold ctermfg=237  ctermbg=237
 " Easily toggle nerdTree
 nmap <leader>ne :NERDTree<cr>
 
+
+" Have Ack use Silver Seacher if it's available
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
 " Visual mode colors
 hi Visual term=reverse cterm=reverse ctermbg=237
 
@@ -194,6 +207,27 @@ colorscheme solarized
 
 " Fix backspace
 set backspace=indent,eol,start
+
+" Enable swift syntax checking and linting
+let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
+
+" Syntastic defaults
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_html_tidy_ignore_errors=[
+    \'proprietary attribute "ng-',
+    \'proprietary attribute "md-',
+    \'discarding unexpected <md-',
+    \'discarding unexpected </md-',
+    \'is not recognized!'
+\]
 
 execute "normal Tmuxline vim_statusline_3"
 
