@@ -34,6 +34,10 @@ let mapleader = ','
 
 " Make config files look nicer
 au BufRead,BufNewFile *.config setfiletype dosini
+" Spell Check
+autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.feature setlocal spell
+autocmd FileType gitcommit setlocal spell
 
 " Make fontend stuff look nice
 au BufNewFile,BufRead *.html

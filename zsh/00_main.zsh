@@ -12,6 +12,7 @@
 #   a.  Python
 #   b.  Web
 #   c.  Android
+#   d.  Kubernetes
 # 6.  Browser Tools
 
 # ----------------------------------------------------------------------------
@@ -20,47 +21,32 @@
 
 #   Default Editor
 #   -----------------------------------
-    export EDITOR=vim
+    if [[ -n $SSH_CONNECTION ]]; then
+      export EDITOR='vim'
+    else
+      export EDITOR='nvim'
+    fi
 
 #   Default Workspace Directory
 #   -----------------------------------
-    export WORKSPACE=$HOME/workspace
+    export WORKSPACE=$HOME/Workspace
 
 #   Default Tools Directory
 #   -----------------------------------
     export TOOLS=$WORKSPACE/tools
 
-#   Default Tools Directory
-#   -----------------------------------
-    export GCC_ARM_HOME=$TOOLS/arm-gcc
-
 #   256 Color Support
 #   -----------------------------------
     export TERM=xterm-256color
 
-#   Kube Configs
-#   -----------------------------------
-    export KUBECONFIGSBASE=$WORKSPACE/kubeconfigs
-    # Export configs
-    for config in $KUBECONFIGSBASE/*.config; do
-        [ -f "$config" ] || break
-        export KUBECONFIG=$KUBECONFIG:$config
-    done
-    # Setup aliases
-    alias k=kubectl
-    alias kx=kubectx
-    alias kns=kubens
-    complete -F __start_kubectl k
-    complete -F _kube_contexts kx
-
 
 # ----------------------------------------------------------------------------
-# 2.  PROMPT
+# 2.  Prompt
 # ----------------------------------------------------------------------------
-
-#   Improve the default prompt
+#   Powerlevel10k
 #   -----------------------------------
-    export PS1='\u@\w\$ '
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
 # ----------------------------------------------------------------------------
@@ -129,11 +115,14 @@
 # 5.  DEVELOPMENT
 # ----------------------------------------------------------------------------
 
-#   Activate Autoenv
+#   Neovim aliases
 #   -----------------------------------
-    AUTOENV_ENV_FILENAME=.autoenv
-    source /usr/local/opt/autoenv/activate.sh
+    alias vim=nvim
+    alias vi=nvim
 
+#   Activate direnv
+#   -----------------------------------
+    eval "$(direnv hook zsh)"
 
 #   Git Completion
 #   -----------------------------------
@@ -153,11 +142,14 @@
 #     ---------------------------------
       alias pyinit='touch __init__.py'
       
-#     Enable Virtualenvwrapper
+#     Setup Pyenv
 #     ---------------------------------
-      export WORKON_HOME=$HOME/.virtualenvs
-      export PROJECT_HOME=$HOME/Devel
-      source /usr/local/bin/virtualenvwrapper.sh
+      if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+      fi
+      eval "$(pyenv virtualenv-init -)"
+      # Prevent warnings from pyenv virtual env
+      export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 #   -----------------------------------
 #   b. Web
@@ -203,6 +195,37 @@
 #     Show Logcat Warnings
 #     ---------------------------------
       alias logcat-warns="adb logcat -v threadtime *:W"
+
+#   -----------------------------------
+#   d. Kubernetes
+#   -----------------------------------
+
+#     Kubeconfigs
+#     ---------------------------------
+      export KUBECONFIGSBASE=$WORKSPACE/kubeconfigs
+      # Export configs
+      for config in $KUBECONFIGSBASE/*.config; do
+          [ -f "$config" ] || break
+          if [ -z "$KUBECONFIG" ]
+          then
+              export KUBECONFIG=$config
+          else
+              export KUBECONFIG=$KUBECONFIG:$config
+          fi
+      done
+
+#     Short Kubectl Aliases
+#     ---------------------------------
+      alias k=kubectl
+      alias kx=kubectx
+      alias kns=kubens
+
+#     Autocompletion
+#     ---------------------------------
+      source <(kubectl completion zsh)
+      complete -F __start_kubectl k
+      complete -F _kube_contexts kx
+
 
 # ----------------------------------------------------------------------------
 # 6.  BROWSER TOOLS
