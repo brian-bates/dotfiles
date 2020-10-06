@@ -1,14 +1,13 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdTree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'klen/python-mode'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'luochen1990/rainbow'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
@@ -16,9 +15,8 @@ Plug 'micha/vim-colors-solarized'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 Plug 'vim-scripts/taglist.vim'
-Plug 'keith/swift.vim'
-Plug 'vim-syntastic/syntastic'
 Plug 'mileszs/ack.vim'
+Plug 'keith/swift.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'tikhomirov/vim-glsl'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -34,6 +32,7 @@ let mapleader = ','
 
 " Make config files look nicer
 au BufRead,BufNewFile *.config setfiletype dosini
+
 " Spell Check
 autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd BufRead,BufNewFile *.feature setlocal spell
@@ -56,10 +55,6 @@ nnoremap <space> za
 " Allow copy to clipboard
 set clipboard=unnamed
 
-" Remap Snippets to play nice with YCM
-imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
-smap <C-J> <Plug>snipMateNextOrTrigger
-
 " Easier Split Navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -78,13 +73,6 @@ augroup vimrc_autocmds
 "Make the color column look decent
 highlight ColorColumn ctermbg=234 guibg=#2c2d27
 
-" Powerline setup
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
-set laststatus=2
-" Remove scrollbars in macvim
-set guioptions-=L
-set guioptions-=r
-
 let g:pymode_rope = 0
 
 " pymode-completion
@@ -102,9 +90,6 @@ let g:pymode_lint_write = 1
 
 " Support virtualenv
 let g:pymode_virtualenv = 1
-
-" Easy GoTo
-nnoremap <leader>g :YcmCompleter GoTo<CR>
 
 " Enable breakpoints plugin
 let g:pymode_breakpoint = 1
@@ -133,10 +118,6 @@ let Tlist_File_Fold_Auto_Close = 1
 let Tlist_Enable_Fold_Column = 0
 let Tlist_Use_Right_Window = 1
 map <leader>t :TlistToggle<CR>
-
-if &diff
-    colorscheme blackboard
-endif
 
 if has ('gui_running')
     colorscheme blackboard
@@ -212,26 +193,9 @@ colorscheme solarized
 " Fix backspace
 set backspace=indent,eol,start
 
-" Enable swift syntax checking and linting
-let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
-
-" Syntastic defaults
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_html_tidy_ignore_errors=[
-    \'proprietary attribute "ng-',
-    \'proprietary attribute "md-',
-    \'discarding unexpected <md-',
-    \'discarding unexpected </md-',
-    \'is not recognized!'
-\]
+" Map  Autoformatting
+nmap <leader>f  <Plug>(coc-format)
+nmap <silent> gd <Plug>(coc-definition)
 
 execute "normal Tmuxline vim_statusline_3"
 

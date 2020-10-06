@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-#                              BRIAN'S AWESOME BASHRC
+#                              BRIAN'S AWESOME ZSHRC
 # ----------------------------------------------------------------------------
 
 # TABLE OF CONTENTS:
@@ -150,6 +150,15 @@
       eval "$(pyenv virtualenv-init -)"
       # Prevent warnings from pyenv virtual env
       export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+#     Use ipb for debugging
+#     ---------------------------------
+      export PYTHONBREAKPOINT=ipdb.set_trace
+
+#     Don't make a bunch of __pycache__ files
+#     ---------------------------------
+      export PYTHONDONTWRITEBYTECODE=1
+
 
 #   -----------------------------------
 #   b. Web
