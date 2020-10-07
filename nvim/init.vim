@@ -2,7 +2,8 @@
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdTree'
+Plug 'preservim/nerdtree' |
+            \ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -20,6 +21,8 @@ Plug 'keith/swift.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'tikhomirov/vim-glsl'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'edkolev/tmuxline.vim'
 call plug#end()
 
@@ -126,17 +129,6 @@ if has ('gui_running')
 else
     highlight Pmenu ctermfg=232 ctermbg=238
 endif
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
 
 " Softer diff colors
 highlight DiffAdd       cterm=bold ctermfg=10   ctermbg=237
@@ -184,6 +176,9 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+" Nerd tree font
+let g:NERDTreeGitStatusUseNerdFonts = 1
 
 " dark mode!
 let &t_Co=16
