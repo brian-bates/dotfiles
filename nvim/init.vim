@@ -48,7 +48,7 @@ au BufNewFile,BufRead *.html
     \ set shiftwidth=2 |
 
 " Don't show pyc files in NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$, \.o$']
+let NERDTreeIgnore=['\.pyc$', '\~$', '\.o$', '\.egg$', '\.egg-info$']
 
 " Code Folding Stuff
 set foldmethod=indent

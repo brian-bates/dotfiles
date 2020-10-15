@@ -124,12 +124,6 @@
 #   -----------------------------------
     eval "$(direnv hook zsh)"
 
-#   Git Completion
-#   -----------------------------------
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-      . $(brew --prefix)/etc/bash_completion
-    fi
-
 #   -----------------------------------
 #   a. Python
 #   -----------------------------------
@@ -234,6 +228,30 @@
       source <(kubectl completion zsh)
       complete -F __start_kubectl k
       complete -F _kube_contexts kx
+
+#     Secret Decoding
+#     ---------------------------------
+      k_decode () {
+          go_template='{{range $k,$v := .data}}'
+          go_template+='{{printf "%s: " $k}}'
+          go_template+='  {{if not $v}}'
+          go_template+='    {{$v}}'
+          go_template+='  {{else}}'
+          go_template+='    {{$v | base64decode}}'
+          go_template+='  {{end}}'
+          go_template+='  {{"\n"}}'
+          go_template+='{{end}}'
+          kubectl get secret $@ -o go-template=$go_template
+      }
+
+#   -----------------------------------
+#   d. GCP
+#   -----------------------------------
+
+#     gcloud completion
+#     ---------------------------------
+      source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+      source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 
 # ----------------------------------------------------------------------------
